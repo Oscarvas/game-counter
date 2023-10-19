@@ -1,7 +1,7 @@
 export interface Player {
     nombre: string;
-    uuid: string;
-    partidas: Game[];
+    player_uuid: string;
+    partidas?: Game[];
 }
 
 export interface Game {

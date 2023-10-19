@@ -3,7 +3,7 @@ import { Player } from "./mocktypes";
 export const DATA: Player[] = [
     {
         nombre: "Jugador 1",
-        uuid: "uuid1",
+        player_uuid: "uuid1",
         partidas: [
             {
                 id: "partida1",
@@ -27,7 +27,7 @@ export const DATA: Player[] = [
     },
     {
         nombre: "Jugador 2",
-        uuid: "uuid2",
+        player_uuid: "uuid2",
         partidas: [
             {
                 id: "partida1",
@@ -51,7 +51,7 @@ export const DATA: Player[] = [
     },
     {
         nombre: "Jugador 3",
-        uuid: "uuid3",
+        player_uuid: "uuid3",
         partidas: [
             {
                 id: "partida1",
@@ -75,7 +75,7 @@ export const DATA: Player[] = [
     },
     {
         nombre: "Jugador 4",
-        uuid: "uuid4",
+        player_uuid: "uuid4",
         partidas: [
             {
                 id: "partida1",
@@ -99,7 +99,7 @@ export const DATA: Player[] = [
     },
     {
         nombre: "Jugador 5",
-        uuid: "uuid5",
+        player_uuid: "uuid5",
         partidas: [
             {
                 id: "partida1",
