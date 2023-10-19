@@ -6,10 +6,11 @@ type PlayerViewProps = {
     name: string,
     id: string,
     onPress: () => void,
+    onDelete: (player_uuid: string) => void,
     selection?: string[]
 }
 
-const PlayerView = ({name, id, onPress, selection}: PlayerViewProps) => {
+const PlayerView = ({name, id, onPress, selection, onDelete}: PlayerViewProps) => {
 
   const backgroundColor = !selection?.includes(id) ? '#95a5a6' : selection?.at(0) ===  id ? '#2ecc71' : '#e74c3c';
   const textColor = !selection?.includes(id) ? '#7f8c8d' : 'white';
@@ -27,15 +28,13 @@ const PlayerView = ({name, id, onPress, selection}: PlayerViewProps) => {
           marginHorizontal: 16,
           borderRadius: 10,
         }}
-        onPress={() => console.log('Borrar: '+ name + ' ' + id )}
+        onPress={() => onDelete(id)}
       >
         <Text
           style={{
-            color: '#1b1a17',
+            color: 'white',
             paddingHorizontal: 10,
-            fontWeight: '600',
-            // paddingHorizontal: 30,
-            // paddingVertical: 10,
+            fontSize: 20,
           }}
         >
           Borrar
@@ -46,10 +45,11 @@ const PlayerView = ({name, id, onPress, selection}: PlayerViewProps) => {
 
   return (
     <Swipeable
-    friction={2}
-    // rightThreshold={21}
-    renderRightActions={renderRightActions}
-    // onSwipeableWillOpen={(direction: 'left' | 'right') => console.log('onSwipeableWillOpen', direction)}
+      friction={2}
+      // rightThreshold={21}
+      // active renderRightActions if it's not in selection
+      renderRightActions={selection?.includes(id) ? undefined : renderRightActions}
+      enabled={!selection?.includes(id)}
     >
       <Pressable onPress={onPress} style={[styles.item, {backgroundColor}]}>
         <Text style={[styles.title, {color: textColor}]}>{name}</Text>
@@ -58,6 +58,7 @@ const PlayerView = ({name, id, onPress, selection}: PlayerViewProps) => {
           {selection?.at(0) ===  id ? '🤑🤑🤑' : '🤬🤬🤬'}
           </Text>}
       </Pressable>
+      
     </Swipeable>
   )
 }
@@ -71,6 +72,8 @@ const styles = StyleSheet.create({
       marginHorizontal: 16,
       borderRadius: 10,
       alignItems: 'center',
+      flexDirection: 'row',
+      justifyContent: 'space-between'
     },
     title: {
       fontSize: 32,

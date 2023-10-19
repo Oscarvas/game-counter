@@ -19,7 +19,7 @@ const PlayerInput = ({lista, updateList}:PlayerInputProps) => {
   return (
     <View style={{flexDirection: "row", alignItems:"center" }}>
       <TextInput
-        placeholder="Añadir ludópata"
+        placeholder="... Pobre alma en desgracia ..."
         onChangeText={newText => setText(newText)}
         defaultValue={text}
         style={styles.input}
@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
         height: 40,
         margin: 12,
         borderWidth: 1,
+        borderRadius: 10,
         padding: 10,
         width: "80%",
     },
