@@ -1,6 +1,6 @@
 import { Player } from "./mocktypes";
 
-export const players: Player[] = [
+export const DATA: Player[] = [
     {
         nombre: "Jugador 1",
         uuid: "uuid1",
