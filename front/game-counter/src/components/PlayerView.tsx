@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Pressable, I18nManager, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, Pressable, I18nManager } from 'react-native'
 import Swipeable from 'react-native-gesture-handler/Swipeable'
 import React from 'react'
 
@@ -17,17 +17,14 @@ const PlayerView = ({name, id, onPress, selection, onDelete}: PlayerViewProps) =
   
   const renderRightActions = () => {
     return (
-      <TouchableOpacity
-        style={{
-          backgroundColor: '#dd2c00',
-          justifyContent: 'center',
-          alignItems: 'flex-end',
-          padding: 15,
-          marginVertical: 8,
-          // width: "80%",
-          marginHorizontal: 16,
-          borderRadius: 10,
-        }}
+      <Pressable
+        style={({pressed}) => [
+          {
+            opacity: pressed ? 0.5 : 1,
+          }
+          ,
+          styles.deleteButton
+        ]}
         onPress={() => onDelete(id)}
       >
         <Text
@@ -39,7 +36,7 @@ const PlayerView = ({name, id, onPress, selection, onDelete}: PlayerViewProps) =
         >
           Borrar
         </Text>
-      </TouchableOpacity>
+      </Pressable>
     );
   };
 
@@ -87,5 +84,15 @@ const styles = StyleSheet.create({
       backgroundColor: '#dd2c00',
       flex: 1,
       justifyContent: 'flex-end'
-    }
+    },
+    deleteButton: {
+      backgroundColor: '#dd2c00',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+      padding: 15,
+      marginVertical: 8,
+      // width: "80%",
+      marginHorizontal: 16,
+      borderRadius: 10,
+    },
 })

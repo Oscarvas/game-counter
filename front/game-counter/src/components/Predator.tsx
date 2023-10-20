@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, Pressable } from 'react-native'
 import React from 'react'
 
 type PredatorProps = {
@@ -8,9 +8,14 @@ type PredatorProps = {
 
 const Predator = ({hunter, prey}: PredatorProps) => {
   return (
-    <TouchableOpacity onPress={() => console.log('la depredació')} style={styles.item}>
+    <Pressable onPress={() => console.log('la depredació')} style={({pressed}) => [
+        {
+          opacity: pressed ? 0.5 : 1,
+        },
+        styles.item
+      ]}>
       <Text style={styles.text}>{hunter + ' 🎯🎯🎯 a ' + prey}</Text>
-    </TouchableOpacity>
+    </Pressable>
   )
 }
 
@@ -22,7 +27,7 @@ const styles = StyleSheet.create({
         // padding: 5,
         marginVertical: 8,
         marginHorizontal: 16,
-        borderRadius: 10,
+        borderRadius: 100,
         alignItems: 'center',
         backgroundColor: '#3F51B5',
         maxHeight: 70,
