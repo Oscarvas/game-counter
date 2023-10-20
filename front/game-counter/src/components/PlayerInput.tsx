@@ -11,7 +11,7 @@ const PlayerInput = ({lista, updateList}:PlayerInputProps) => {
   const [text, setText] = useState('');
 
   function addPlayer(){
-    text && updateList([...lista, {nombre: text, player_uuid: uuid.v4().toString()}])
+    text && updateList([...lista, {nombre: text.trim(), player_uuid: uuid.v4().toString()}])
 
     setText('')
   }
