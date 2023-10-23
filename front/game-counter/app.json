@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "game-counter",
-    "slug": "game-counter",
+    "slug": "predator-parchis",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0293db50-ee2f-45a3-a5cf-dd37a31a3b30"
+      }
+    },
+    "owner": "oscarvas"
   }
 }
