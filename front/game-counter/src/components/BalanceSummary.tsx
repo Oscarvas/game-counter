@@ -1,12 +1,13 @@
 import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Transaction } from '../mock/mocktypes'
+import { GameData, Transaction } from '../mock/mocktypes'
 
 type BalanceSummaryProps = {
-  data : Transaction[]   
+  data : Transaction[]
+  gameStatus: GameData   
 }
 
-const BalanceSummary = ({data}: BalanceSummaryProps) => {
+const BalanceSummary = ({data, gameStatus}: BalanceSummaryProps) => {
   return (
     <View style={styles.container}>
       <Text>Resumen de pago -- Cuentas cerradas</Text>
