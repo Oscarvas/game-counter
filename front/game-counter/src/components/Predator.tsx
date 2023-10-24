@@ -1,4 +1,4 @@
-import { StyleSheet, Text, Pressable, Alert } from 'react-native'
+import { StyleSheet, Text, Pressable, Alert, Platform } from 'react-native'
 import React from 'react'
 
 type PredatorProps = {
@@ -6,22 +6,30 @@ type PredatorProps = {
     prey: string,
     onTransaction: () => void
 }
-
+const headline = ' 🎯🎯🎯 a '
 const Predator = ({hunter, prey, onTransaction}: PredatorProps) => {
 
   function validateTransaction(){
-    Alert.alert(
-      "Confirmar transacción",
-      hunter + ' 🎯🎯🎯 a ' + prey,
-      [
-        {
-          text: "Cancelar",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "Confirmar", onPress: () => onTransaction() }
-      ]
-    );
+    if (Platform.OS === 'web'){
+      let accept  = confirm(hunter + headline + prey)
+      if (accept) {
+        onTransaction()
+      }
+    }
+    else{
+      Alert.alert(
+        "Confirmar transacción",
+        hunter + headline + prey,
+        [
+          {
+            text: "Cancelar",
+            onPress: () => console.log("Cancel Pressed"),
+            style: "cancel"
+          },
+          { text: "Confirmar", onPress: () => onTransaction() }
+        ]
+      );
+    }
     
   }
   return (
@@ -31,7 +39,7 @@ const Predator = ({hunter, prey, onTransaction}: PredatorProps) => {
         },
         styles.item
       ]}>
-      <Text style={styles.text}>{hunter + ' 🎯🎯🎯 a ' + prey}</Text>
+      <Text style={styles.text}>{hunter + headline + prey}</Text>
     </Pressable>
   )
 }
