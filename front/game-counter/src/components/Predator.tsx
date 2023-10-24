@@ -2,8 +2,8 @@ import { StyleSheet, Text, Pressable, Alert } from 'react-native'
 import React from 'react'
 
 type PredatorProps = {
-    hunter: string | undefined,
-    prey: string | undefined,
+    hunter: string,
+    prey: string,
     onTransaction: () => void
 }
 

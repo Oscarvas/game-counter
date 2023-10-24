@@ -1,6 +1,6 @@
 // import { StatusBar } from 'expo-status-bar';
 import { FlatList, ListRenderItemInfo, StyleSheet, SafeAreaView, View } from 'react-native';
-import { Player, Transaction } from './src/mock/mocktypes';
+import { GameData, Player, Transaction } from './src/mock/mocktypes';
 import PlayerView from './src/components/PlayerView';
 import React, { useState } from 'react';
 import BalanceSummary from './src/components/BalanceSummary';
@@ -13,6 +13,7 @@ export default function App() {
   const [selectedId, setSelectedId] = useState<string[]>([])
   const [players, setPlayers] = useState<Player[]>([])
   const [transactions, setTransaction] = useState<Transaction[]>([])
+  const [game, setGame] = useState<GameData>()
 
   function updateSelectedId(id: string) {
 
@@ -24,12 +25,40 @@ export default function App() {
     }
   }
 
+  function updateGame(hunter: string, prey: string){
+    if (game){
+      const newGame : Map<string, Map<string, number>> = new Map(game)
+
+      if (!newGame.get(hunter)){ // first time hunting
+        newGame.set(hunter, new Map<string, number>().set(prey, 1))
+      }
+
+      else{
+        if (!newGame.get(hunter)!.get(prey)){ // first time hunting this prey
+          newGame.get(hunter)!.set(prey, 1)
+        }
+        else{
+          newGame.get(hunter)!.set(prey, newGame.get(hunter)!.get(prey)! + 1)
+        }
+      }
+      setGame(newGame)
+    }
+
+    else{ // first time playing
+      const newGame: GameData = new Map<string, Map<string, number>>();
+      newGame.set(hunter, new Map<string, number>().set(prey, 1))
+      setGame(newGame)
+    }
+  }
+
   function newTransaction(){
 
-    const hunter = players.find((item) => item.player_uuid === selectedId.at(0))?.nombre 
-    const prey = players.find((item) => item.player_uuid === selectedId.at(1))?.nombre
+    const hunter = players.find((item) => item.player_uuid === selectedId.at(0))!.nombre 
+    const prey = players.find((item) => item.player_uuid === selectedId.at(1))!.nombre
     setTransaction([...transactions, {hunter: hunter, prey: prey}])
     setSelectedId([])
+
+    updateGame(hunter, prey)
   }
 
   return (
@@ -52,8 +81,8 @@ export default function App() {
             } />
             {selectedId.length === 2 && 
               <Predator 
-                hunter={players.find((item) => item.player_uuid === selectedId.at(0))?.nombre } 
-                prey={players.find((item) => item.player_uuid === selectedId.at(1))?.nombre } 
+                hunter={players.find((item) => item.player_uuid === selectedId.at(0))!.nombre } 
+                prey={players.find((item) => item.player_uuid === selectedId.at(1))!.nombre } 
                 onTransaction={newTransaction}
                 />}
 

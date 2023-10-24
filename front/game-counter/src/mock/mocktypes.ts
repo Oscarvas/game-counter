@@ -5,8 +5,8 @@ export interface Player {
 }
 
 export interface Transaction {
-    hunter: string | undefined;
-    prey: string | undefined;
+    hunter: string;
+    prey: string;
 }
 export interface Game {
     id: string;
@@ -15,3 +15,5 @@ export interface Game {
         valor: number;
     }[];
 }
+
+export type GameData = Map<string, Map<string, number>>;
