@@ -1,14 +1,31 @@
-import { StyleSheet, Text, Pressable } from 'react-native'
+import { StyleSheet, Text, Pressable, Alert } from 'react-native'
 import React from 'react'
 
 type PredatorProps = {
     hunter: string | undefined,
-    prey: string | undefined
+    prey: string | undefined,
+    onTransaction: () => void
 }
 
-const Predator = ({hunter, prey}: PredatorProps) => {
+const Predator = ({hunter, prey, onTransaction}: PredatorProps) => {
+
+  function validateTransaction(){
+    Alert.alert(
+      "Confirmar transacción",
+      hunter + ' 🎯🎯🎯 a ' + prey,
+      [
+        {
+          text: "Cancelar",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        { text: "Confirmar", onPress: () => onTransaction() }
+      ]
+    );
+    
+  }
   return (
-    <Pressable onPress={() => console.log('la depredació')} style={({pressed}) => [
+    <Pressable onPress={validateTransaction} style={({pressed}) => [
         {
           opacity: pressed ? 0.5 : 1,
         },

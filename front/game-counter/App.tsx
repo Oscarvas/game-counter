@@ -1,7 +1,6 @@
 // import { StatusBar } from 'expo-status-bar';
 import { FlatList, ListRenderItemInfo, StyleSheet, SafeAreaView, View } from 'react-native';
-import { DATA } from './src/mock/mockdata';
-import { Player } from './src/mock/mocktypes';
+import { Player, Transaction } from './src/mock/mocktypes';
 import PlayerView from './src/components/PlayerView';
 import React, { useState } from 'react';
 import BalanceSummary from './src/components/BalanceSummary';
@@ -13,6 +12,7 @@ import Predator from './src/components/Predator';
 export default function App() {
   const [selectedId, setSelectedId] = useState<string[]>([])
   const [players, setPlayers] = useState<Player[]>([])
+  const [transactions, setTransaction] = useState<Transaction[]>([])
 
   function updateSelectedId(id: string) {
 
@@ -22,6 +22,14 @@ export default function App() {
     else{
       selectedId?.length < 2 && setSelectedId([...selectedId, id])
     }
+  }
+
+  function newTransaction(){
+
+    const hunter = players.find((item) => item.player_uuid === selectedId.at(0))?.nombre 
+    const prey = players.find((item) => item.player_uuid === selectedId.at(1))?.nombre
+    setTransaction([...transactions, {hunter: hunter, prey: prey}])
+    setSelectedId([])
   }
 
   return (
@@ -45,8 +53,11 @@ export default function App() {
             {selectedId.length === 2 && 
               <Predator 
                 hunter={players.find((item) => item.player_uuid === selectedId.at(0))?.nombre } 
-                prey={players.find((item) => item.player_uuid === selectedId.at(1))?.nombre } />}
-            {/* <BalanceSummary/> */}
+                prey={players.find((item) => item.player_uuid === selectedId.at(1))?.nombre } 
+                onTransaction={newTransaction}
+                />}
+
+              <BalanceSummary data={transactions}/>
       </GestureHandlerRootView>
     </SafeAreaView>
   );

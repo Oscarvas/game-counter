@@ -1,14 +1,36 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Transaction } from '../mock/mocktypes'
 
-const BalanceSummary = () => {
+type BalanceSummaryProps = {
+  data : Transaction[]   
+}
+
+const BalanceSummary = ({data}: BalanceSummaryProps) => {
   return (
-    <View style={{flex:1}}>
-      <Text>BalanceSummary</Text>
+    <View style={styles.container}>
+      <Text>Resumen de pago -- Cuentas cerradas</Text>
+      <Text>Historial de transacciones</Text>
+      <View>
+        <FlatList
+          contentContainerStyle={styles.lista}
+          data={data}
+          renderItem={({item}) => <Text style={{fontSize:20}}>{item.prey} paga a {item.hunter}</Text>}
+        />
+      </View>
     </View>
   )
 }
 
 export default BalanceSummary
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+  lista:{
+    backgroundColor: '#fff',
+    alignItems: 'center',
+
+  }
+})

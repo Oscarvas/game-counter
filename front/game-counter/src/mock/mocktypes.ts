@@ -4,6 +4,10 @@ export interface Player {
     partidas?: Game[];
 }
 
+export interface Transaction {
+    hunter: string | undefined;
+    prey: string | undefined;
+}
 export interface Game {
     id: string;
     jugadores: {
