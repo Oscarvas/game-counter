@@ -22,3 +22,12 @@ export interface GameSummary {
     saldo_total: number;
     deudores:  Map<string, number>;
 }
+
+export interface ChartDataType{
+    labels: string[];
+    datasets: ChartDataSets[];
+}
+
+export interface ChartDataSets{
+    data: number[];
+}
