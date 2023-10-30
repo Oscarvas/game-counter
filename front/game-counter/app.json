@@ -15,13 +15,15 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.oscarvas.predatorparchis"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.oscarvas.predatorparchis"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,6 +33,12 @@
         "projectId": "0293db50-ee2f-45a3-a5cf-dd37a31a3b30"
       }
     },
-    "owner": "oscarvas"
+    "owner": "oscarvas",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/0293db50-ee2f-45a3-a5cf-dd37a31a3b30"
+    }
   }
 }
