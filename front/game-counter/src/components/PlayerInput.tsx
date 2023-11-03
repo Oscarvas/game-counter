@@ -29,7 +29,7 @@ const PlayerInput = ({lista, updateList}:PlayerInputProps) => {
         style={styles.input}
         enterKeyHint='done'
         clearButtonMode='while-editing'
-        autoFocus={true}
+        // autoFocus={true}
         onSubmitEditing={() => addPlayer()}
         clearTextOnFocus={true}
       />

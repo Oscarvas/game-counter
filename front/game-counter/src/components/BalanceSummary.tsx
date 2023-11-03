@@ -1,5 +1,5 @@
 import { FlatList, StyleSheet, Text, View, Dimensions } from 'react-native'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { GameData, Transaction } from '../mock/mocktypes'
 import { calculateDebts } from '../utils/debts'
 import { BarChart } from 'react-native-chart-kit'
@@ -12,10 +12,6 @@ type BalanceSummaryProps = {
 const screenWidth = Dimensions.get("window").width ;
 
 const BalanceSummary = ({ data, gameStatus }: BalanceSummaryProps) => {
-
-  useEffect(() => {
-    console.log('gameStatus', gameStatus)
-  }, [gameStatus])
   
   const chartConfig = {
     backgroundGradientFrom: '#ecf0f1',
@@ -58,6 +54,7 @@ const BalanceSummary = ({ data, gameStatus }: BalanceSummaryProps) => {
             withHorizontalLabels={false}
           />
           <FlatList
+            scrollEnabled={false}
             contentContainerStyle={styles.lista}
             data={calculateDebts(gameStatus)}
             renderItem={({item}) => <Text style={{fontSize:20}}>{item}</Text>}

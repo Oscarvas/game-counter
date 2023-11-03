@@ -1,5 +1,5 @@
 // import { StatusBar } from 'expo-status-bar';
-import { FlatList, ListRenderItemInfo, StyleSheet, SafeAreaView } from 'react-native';
+import { FlatList, ListRenderItemInfo, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { GameData, GameSummary, Player, Transaction } from './src/mock/mocktypes';
 import PlayerView from './src/components/PlayerView';
 import React, { useState } from 'react';
@@ -47,13 +47,13 @@ export default function App() {
       let deuda_acumulada = newGame.get(prey)?.deudores.get(hunter) // me obtengo de la lista de deudores de prey
 
       if (deuda_acumulada) { // opposite transaction exists. Prey hunted hunter before and got advantage
-        deuda_acumulada === 1 ? 
+        deuda_acumulada === 1 ?
           newGame.get(prey)!.deudores.delete(hunter) : // even transaction, delete from list
           newGame.get(prey)!.deudores.set(hunter, newGame.get(prey)!.deudores.get(hunter)! - 1)
-        
+
       }
       else { // hunter hunted before but not this prey
-  
+
         !newGame.get(hunter)!.deudores.get(prey) ? // first time hunting this prey
           newGame.get(hunter)!.deudores.set(prey, 1) : // hunted this prey before
           newGame.get(hunter)!.deudores.set(prey, newGame.get(hunter)!.deudores.get(prey)! + 1)
@@ -74,22 +74,26 @@ export default function App() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <PlayerInput lista={players} updateList={setPlayers} />
+      {/* <PlayerInput lista={players} updateList={setPlayers} /> */}
+      <ScrollView>
 
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <FlatList
-          data={players}
-          style={{ backgroundColor: '#ecf0f1', flexGrow: 0 }}
-          // ItemSeparatorComponent={() => <View style={styles.separator} />}
-          keyExtractor={(item) => item.player_uuid}
-          renderItem={({ item }: ListRenderItemInfo<Player>) =>
-            <PlayerView
-              name={item.nombre}
-              id={item.player_uuid}
-              onPress={() => updateSelectedId(item.player_uuid)}
-              onDelete={(id: string) => setPlayers(players.filter((item) => item.player_uuid !== id))}
-              selection={selectedId} />
-          } />
+        <GestureHandlerRootView>
+          <FlatList
+            scrollEnabled={false}
+            ListHeaderComponent={() => <PlayerInput lista={players} updateList={setPlayers} />}
+            data={players}
+            style={{ backgroundColor: '#ecf0f1', flexGrow: 0 }}
+            // ItemSeparatorComponent={() => <View style={styles.separator} />}
+            keyExtractor={(item) => item.player_uuid}
+            renderItem={({ item }: ListRenderItemInfo<Player>) =>
+              <PlayerView
+                name={item.nombre}
+                id={item.player_uuid}
+                onPress={() => updateSelectedId(item.player_uuid)}
+                onDelete={(id: string) => setPlayers(players.filter((item) => item.player_uuid !== id))}
+                selection={selectedId} />
+            } />
+        </GestureHandlerRootView>
         {selectedId.length === 2 &&
           <Predator
             hunter={players.find((item) => item.player_uuid === selectedId.at(0))!.nombre}
@@ -99,8 +103,9 @@ export default function App() {
         }
 
         <BalanceSummary data={transactions} gameStatus={game} />
+      </ScrollView>
 
-      </GestureHandlerRootView>
+
     </SafeAreaView>
   );
 }

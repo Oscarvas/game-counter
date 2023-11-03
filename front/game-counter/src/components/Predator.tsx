@@ -23,7 +23,6 @@ const Predator = ({hunter, prey, onTransaction}: PredatorProps) => {
         [
           {
             text: "Cancelar",
-            onPress: () => console.log("Cancel Pressed"),
             style: "cancel"
           },
           { text: "Confirmar", onPress: () => onTransaction() }
@@ -55,8 +54,7 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         alignItems: 'center',
         backgroundColor: '#3F51B5',
-        maxHeight: 70,
-        // minHeight: 50,
+        height: 50,
         justifyContent: 'center',
       },
       text: {
