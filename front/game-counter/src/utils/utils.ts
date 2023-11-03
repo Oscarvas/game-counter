@@ -4,9 +4,9 @@ import { GameData, ChartDataType } from '../mock/mocktypes';
 export function getChartData(game: GameData): ChartDataType {
     let labels: string[] = [];
     let data: number[] = [];
-    game.forEach((summary, jugador) => {
+    game.forEach((balance, jugador) => {
         labels.push(jugador);
-        data.push(summary.saldo_total);
+        data.push(balance);
     });
     return { labels: labels, datasets: [{ data: data }] };
 }

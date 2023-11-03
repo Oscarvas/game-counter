@@ -39,7 +39,7 @@ const BalanceSummary = ({ data, gameStatus }: BalanceSummaryProps) => {
   return (
     <View style={styles.container}>
       <Text style={styles.header} >Resumen de pagos</Text>
-      {gameStatus.size > 0 &&
+      
         <View>
           <BarChart
             style={styles.graphStyle}
@@ -60,7 +60,6 @@ const BalanceSummary = ({ data, gameStatus }: BalanceSummaryProps) => {
             renderItem={({item}) => <Text style={{fontSize:20}}>{item}</Text>}
           />
         </View>
-      }
       <Text style={styles.header} >Historial de transacciones</Text>
       <View>
         <FlatList

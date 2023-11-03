@@ -1,11 +1,15 @@
 import { GameData } from "../mock/mocktypes";
 
 export function calculateDebts(game: GameData): Array<string> {
+    // all values are 0
+    if (Array.from(game.values()).every(x => x === 0)) {
+        return [];
+    }
 
     // sort and filter the data
     const saldos_finales = [...game.entries()].map(([jugador, summary]) => {
-        if (summary.saldo_total != 0)
-            return [jugador, summary.saldo_total]
+        if (summary != 0)
+            return [jugador, summary]
         else
             return undefined;
     }).filter(x => x !== undefined).sort((a, b) => {
@@ -35,6 +39,10 @@ export function calculateDebts(game: GameData): Array<string> {
             // extract the next element of the array
             [jugador, saldo] = saldos_finales.shift() as [string, number];
             deuda += pendiente;
+            if (deuda == 0) {
+                // extract the last element of the array
+                [deudor, deuda] = saldos_finales.pop() as [string, number];
+            }
         }
         else {
             [deudor, deuda] = saldos_finales.pop() as [string, number];

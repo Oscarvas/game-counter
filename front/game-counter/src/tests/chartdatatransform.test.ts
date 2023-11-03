@@ -1,11 +1,11 @@
 import { getChartData } from '../utils/utils';
-import { ChartDataType, GameSummary } from '../mock/mocktypes';
+import { ChartDataType } from '../mock/mocktypes';
 
 describe('getChartData', () => {
     it('should transform GameData into ChartDataType', () => {
-        const gameData: Map<string, GameSummary> = new Map([
-            ['oscar', { saldo_total: 4, deudores: new Map() }],
-            ['juan', { saldo_total: -4, deudores: new Map() }]
+        const gameData: Map<string, number> = new Map([
+            ['oscar', 4],
+            ['juan', -4]
         ]);
         const expectedChartData: ChartDataType = {
             labels: ['oscar', 'juan'],

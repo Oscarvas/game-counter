@@ -1,6 +1,6 @@
 // import { StatusBar } from 'expo-status-bar';
 import { FlatList, ListRenderItemInfo, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
-import { GameData, GameSummary, Player, Transaction } from './src/mock/mocktypes';
+import { GameData, Player, Transaction } from './src/mock/mocktypes';
 import PlayerView from './src/components/PlayerView';
 import React, { useState } from 'react';
 import BalanceSummary from './src/components/BalanceSummary';
@@ -29,35 +29,16 @@ export default function App() {
     let newGame: GameData = new Map(game) // copy existing game
 
     if (!newGame.get(prey)) { // first time hunted, generates debt
-      newGame.set(prey, { saldo_total: -1, deudores: new Map<string, number>() })
+      newGame.set(prey, -1)
     } else { // prey already exists
-      newGame.get(prey)!.saldo_total -= 1
+      newGame.set(prey, newGame.get(prey)! - 1)
     }
 
     if (!newGame.get(hunter)) { // first time hunting
-      let summary: GameSummary = {
-        saldo_total: 1, // 1 because hunter hunted prey
-        deudores: new Map<string, number>().set(prey, 1)
-      }
-      newGame.set(hunter, summary)
+      newGame.set(hunter, 1)
     }
     else { // hunter already exists
-      newGame.get(hunter)!.saldo_total += 1
-
-      let deuda_acumulada = newGame.get(prey)?.deudores.get(hunter) // me obtengo de la lista de deudores de prey
-
-      if (deuda_acumulada) { // opposite transaction exists. Prey hunted hunter before and got advantage
-        deuda_acumulada === 1 ?
-          newGame.get(prey)!.deudores.delete(hunter) : // even transaction, delete from list
-          newGame.get(prey)!.deudores.set(hunter, newGame.get(prey)!.deudores.get(hunter)! - 1)
-
-      }
-      else { // hunter hunted before but not this prey
-
-        !newGame.get(hunter)!.deudores.get(prey) ? // first time hunting this prey
-          newGame.get(hunter)!.deudores.set(prey, 1) : // hunted this prey before
-          newGame.get(hunter)!.deudores.set(prey, newGame.get(hunter)!.deudores.get(prey)! + 1)
-      }
+      newGame.set(hunter, newGame.get(hunter)! + 1)
     }
     setGame(newGame) // update game
   }
@@ -79,10 +60,12 @@ export default function App() {
 
         <GestureHandlerRootView>
           <FlatList
+            numColumns={2}
             scrollEnabled={false}
             ListHeaderComponent={() => <PlayerInput lista={players} updateList={setPlayers} />}
             data={players}
-            style={{ backgroundColor: '#ecf0f1', flexGrow: 0 }}
+            style={{ backgroundColor: '#ecf0f1'}}
+            columnWrapperStyle={{ justifyContent: 'space-between' }}
             // ItemSeparatorComponent={() => <View style={styles.separator} />}
             keyExtractor={(item) => item.player_uuid}
             renderItem={({ item }: ListRenderItemInfo<Player>) =>

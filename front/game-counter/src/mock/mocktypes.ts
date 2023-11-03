@@ -16,12 +16,7 @@ export interface Game {
     }[];
 }
 
-export type GameData = Map<string, GameSummary>;
-
-export interface GameSummary {
-    saldo_total: number;
-    deudores:  Map<string, number>;
-}
+export type GameData = Map<string, number>;
 
 export interface ChartDataType{
     labels: string[];
