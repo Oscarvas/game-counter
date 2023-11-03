@@ -52,7 +52,7 @@ const PlayerView = ({name, id, onPress, selection, onDelete}: PlayerViewProps) =
         <Text style={[styles.title, {color: textColor}]}>{name}</Text>
         {/* render next text component if it's in selection  */}
         {selection?.includes(id) && <Text style={styles.subtitle} >
-          {selection?.at(0) ===  id ? '🤑🤑🤑' : '🤬🤬🤬'}
+          {selection?.at(0) ===  id ? '🤑' : '🤬'}
           </Text>}
       </Pressable>
       
@@ -64,16 +64,17 @@ export default PlayerView
 
 const styles = StyleSheet.create({
     item: {
-      padding: 15,
+      padding: 12,
       marginVertical: 8,
       marginHorizontal: 16,
       borderRadius: 10,
       alignItems: 'center',
       flexDirection: 'row',
-      justifyContent: 'space-between'
+      justifyContent: 'space-between',
+      width: 160,
     },
     title: {
-      fontSize: 32,
+      fontSize: 26,
     },
     subtitle: {
       fontSize: 26,
