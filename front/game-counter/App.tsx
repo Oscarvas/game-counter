@@ -7,7 +7,10 @@ import BalanceSummary from './src/components/BalanceSummary';
 import PlayerInput from './src/components/PlayerInput';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import Predator from './src/components/Predator';
+import Constants from 'expo-constants';
 
+const statusBarHeight = Constants.statusBarHeight;
+const backgroundColor = '#ecf0f1';
 
 export default function App() {
   const [selectedId, setSelectedId] = useState<string[]>([])
@@ -64,8 +67,7 @@ export default function App() {
             scrollEnabled={false}
             ListHeaderComponent={() => <PlayerInput lista={players} updateList={setPlayers} />}
             data={players}
-            style={{ backgroundColor: '#ecf0f1'}}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
+            style={styles.playersList}
             // ItemSeparatorComponent={() => <View style={styles.separator} />}
             keyExtractor={(item) => item.player_uuid}
             renderItem={({ item }: ListRenderItemInfo<Player>) =>
@@ -75,7 +77,8 @@ export default function App() {
                 onPress={() => updateSelectedId(item.player_uuid)}
                 onDelete={(id: string) => setPlayers(players.filter((item) => item.player_uuid !== id))}
                 selection={selectedId} />
-            } />
+            } 
+            />
         </GestureHandlerRootView>
         {selectedId.length === 2 &&
           <Predator
@@ -96,9 +99,11 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ecf0f1',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    backgroundColor,
+    paddingTop: statusBarHeight,
+  },
+  playersList: {
+    backgroundColor,
   },
   separator: {
     backgroundColor: 'rgb(200, 199, 204)',

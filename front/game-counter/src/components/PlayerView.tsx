@@ -47,13 +47,16 @@ const PlayerView = ({name, id, onPress, selection, onDelete}: PlayerViewProps) =
       // active renderRightActions if it's not in selection
       renderRightActions={selection?.includes(id) ? undefined : renderRightActions}
       enabled={!selection?.includes(id)}
+      containerStyle={styles.container}
     >
-      <Pressable onPress={onPress} style={[styles.item, {backgroundColor}]}>
-        <Text style={[styles.title, {color: textColor}]}>{name}</Text>
+      <Pressable onPress={onPress} style={[styles.item, { backgroundColor }]}>
+        <Text style={[styles.title, { color: textColor }]}>{name}</Text>
         {/* render next text component if it's in selection  */}
-        {selection?.includes(id) && <Text style={styles.subtitle} >
-          {selection?.at(0) ===  id ? '🤑' : '🤬'}
-          </Text>}
+        {selection?.includes(id) &&
+          <Text style={styles.title} >
+            {selection?.at(0) === id ? '🤑' : '🤬'}
+          </Text>
+        }
       </Pressable>
       
     </Swipeable>
@@ -63,6 +66,9 @@ const PlayerView = ({name, id, onPress, selection, onDelete}: PlayerViewProps) =
 export default PlayerView
 
 const styles = StyleSheet.create({
+    container: {
+      width: '50%',
+    },
     item: {
       padding: 12,
       marginVertical: 8,
@@ -71,17 +77,13 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       flexDirection: 'row',
       justifyContent: 'space-between',
-      width: 160,
     },
     title: {
       fontSize: 26,
     },
-    subtitle: {
-      fontSize: 26,
-    },
     rightAction: {
       alignItems: 'center',
-      flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
+      // flexDirection: I18nManager.isRTL ? 'row-reverse' : 'row',
       backgroundColor: '#dd2c00',
       flex: 1,
       justifyContent: 'flex-end'
